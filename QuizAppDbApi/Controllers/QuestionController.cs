@@ -57,7 +57,7 @@ namespace QuizAppDbApi.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult<qa_questions>> PostStudentInfo(qa_questions questionInfo)
+    public async Task<ActionResult<qa_questions>> PostQuestionInfo(qa_questions questionInfo)
     {
       _context.Qa_questions.Add(questionInfo);
       await _context.SaveChangesAsync();
@@ -71,6 +71,36 @@ namespace QuizAppDbApi.Controllers
       //}, studentInfo);
 
       return CreatedAtAction("GetQuestionsInfo", questionInfo, null);
+    }
+
+    [HttpPut("{pk}")]
+    public async Task<IActionResult> PutQuestionInfo(int pk, qa_questions questionInfo)
+    {
+      if (pk != questionInfo.qa_questions_pk)
+      {
+        return BadRequest();
+      }
+
+      _context.Entry(questionInfo).State = EntityState.Modified;
+      await _context.SaveChangesAsync();
+
+      return NoContent();
+    }
+
+    [HttpDelete("{pk}")]
+    public async Task<IActionResult> DeleteQuestionInfo(int pk)
+    {
+      var questionInfo = await _context.Qa_questions.FindAsync(pk);
+
+      if (questionInfo == null)
+      {
+        return NotFound();
+      }
+
+      _context.Qa_questions.Remove(questionInfo);
+      await _context.SaveChangesAsync();
+
+      return NoContent();
     }
   }
 }

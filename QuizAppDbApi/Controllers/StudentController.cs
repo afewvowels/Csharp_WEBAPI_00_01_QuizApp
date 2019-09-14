@@ -66,5 +66,35 @@ namespace QuizAppDbApi.Controllers
 
       return CreatedAtAction("GetStudentsInfo", studentInfo, null);
     }
+
+    [HttpPut("{pk}")]
+    public async Task<IActionResult> PutStudentInfo(int pk, qa_users studentInfo)
+    {
+      if (pk != studentInfo.qa_users_pk)
+      {
+        return BadRequest();
+      }
+
+      _context.Entry(studentInfo).State = EntityState.Modified;
+      await _context.SaveChangesAsync();
+
+      return NoContent();
+    }
+
+    [HttpDelete("{pk}")]
+    public async Task<IActionResult> DeleteStudentInfo(int pk)
+    {
+      var studentInfo = await _context.Qa_users.FindAsync(pk);
+
+      if(studentInfo == null)
+      {
+        return NotFound();
+      }
+
+      _context.Qa_users.Remove(studentInfo);
+      await _context.SaveChangesAsync();
+
+      return NoContent();
+    }
   }
 }
