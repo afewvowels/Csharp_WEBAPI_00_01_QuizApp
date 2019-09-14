@@ -22,7 +22,6 @@ namespace QuizAppDbApi.Controllers
       {
         _context.Qa_users.Add(new qa_users
         {
-          qa_users_pk = 13,
           qa_users_email = "email@email.com",
           qa_users_name = "name",
           qa_users_pass = "pass",
@@ -32,13 +31,13 @@ namespace QuizAppDbApi.Controllers
       }
     }
 
-    [HttpGet]
+    [HttpGet(Name = "GetStudentsInfo")]
     public async Task<ActionResult<IEnumerable<qa_users>>> GetStudentsInfo()
     {
       return await _context.Qa_users.ToListAsync();
     }
 
-    [HttpGet("{pk}")]
+    [HttpGet("{pk}", Name = "GetStudentInfo")]
     public async Task<ActionResult<qa_users>> GetStudentInfo(int pk)
     {
       var studentInfo = await _context.Qa_users.FindAsync(pk);
@@ -65,7 +64,7 @@ namespace QuizAppDbApi.Controllers
       //  qa_users_score = studentInfo.qa_users_score
       //}, studentInfo);
 
-      return CreatedAtAction("GetStudentInfo", studentInfo, null);
+      return CreatedAtAction("GetStudentsInfo", studentInfo, null);
     }
   }
 }
