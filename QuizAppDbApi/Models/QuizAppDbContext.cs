@@ -12,7 +12,6 @@ namespace QuizAppDbApi.Models
     {
     }
     public DbSet<qa_users> Qa_users { get; set; }
-    public DbSet<qa_admins> Qa_admins { get; set; }
     public DbSet<qa_class> Qa_class { get; set; }
     public DbSet<qa_questions> Qa_questions { get; set; }
   }

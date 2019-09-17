@@ -44,7 +44,7 @@ namespace QuizAppDbApi
       }
 
       app.UseHttpsRedirection();
-      app.UseMvc();
+      app.UseMvcWithDefaultRoute();
     }
   }
 }
